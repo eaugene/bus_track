@@ -17,13 +17,15 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.os.*;
 import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 /**
@@ -49,6 +51,11 @@ public class GPSTracker extends Service {
     private static final long MIN_TIME_FOR_UPDATES = 1000;
     protected LocationManager locationManager;
     Activity activity;
+    FirebaseDatabase db1;
+    DatabaseReference ref1;
+    //TelephonyManager telephonyManager1= (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);;
+    String busno1;
+    String id1;
 
     public static final long INTERVAL = 10000;//variable to execute services every 10 second
     private Handler mHandler = new Handler(); // run on another Thread to avoid crash
@@ -86,6 +93,7 @@ public class GPSTracker extends Service {
                 @Override
                 public void run() {
                     // display toast at every 10 second
+    //                db1=FirebaseDatabase.getInstance();
                     abc();
                     Toast.makeText(getApplicationContext(), "Notify222222", Toast.LENGTH_SHORT).show();
                 }
@@ -145,9 +153,16 @@ public class GPSTracker extends Service {
 
                 if (location != null) {
                     Log.d("testw","uyiu");
-                    latitude = location.getLatitude();
-                    longitude = location.getLongitude();
-                    Toast.makeText(getApplicationContext(), latitude + "+" + longitude, Toast.LENGTH_SHORT).show();
+                    latitude =(double) location.getLatitude();
+                    longitude =(double) location.getLongitude();
+                    //id1=telephonyManager1.getDeviceId();
+                    db1=FirebaseDatabase.getInstance();
+                    ref1=db1.getReference("bg");
+                    //ref.setValue(busno.toUpperCase()+","+latitude+","+longitude);
+                    ref1.child("bus_no").setValue("bgw");
+                    ref1.child("latitude").setValue(latitude);
+                    ref1.child("longitude").setValue(longitude);
+                    Toast.makeText(getApplicationContext(), latitude + "+" + longitude, Toast.LENGTH_LONG).show();
                 }
             }
         }
