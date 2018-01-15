@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -27,6 +28,8 @@ import java.util.TimerTask;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import static android.content.Intent.getIntent;
+
 
 /**
  * Created by Eaugene on 12/01/2018.
@@ -38,7 +41,7 @@ public class GPSTracker extends Service {
     boolean isgpsenabled = false;
     boolean isnetworkenabled = false;
     boolean cangetgps = false;
-
+    //String android_id = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
     private Context mcontext1;
     Activity activity1;
     public int oo = 0;
@@ -53,20 +56,36 @@ public class GPSTracker extends Service {
     Activity activity;
     FirebaseDatabase db1;
     DatabaseReference ref1;
-    //TelephonyManager telephonyManager1= (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);;
-    String busno1;
+    //TelephonyManager telephonyManager1= (TelephonyManager) getApplicationContext().getSystemService(getApplicationContext().TELEPHONY_SERVICE);;
+    //String busno1;
     String id1;
 
     public static final long INTERVAL = 10000;//variable to execute services every 10 second
     private Handler mHandler = new Handler(); // run on another Thread to avoid crash
     private Timer mTimer = null; // timer handling
 
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        //id1 = intent.getStringExtra("imei");
+        //Log.d("testw",id1);
         throw new UnsupportedOperationException("unsupported Operation");
     }
 
+    /*@Override
+    public int onStartCommand (Intent intent, int flags, int startId) {
+    if (!(id1.isEmpty())) {
+        id1 = intent.getStringExtra("imei");
+        if (mTimer != null)
+            mTimer.cancel();
+        else
+            mTimer = new Timer(); // recreate new timer
+        mTimer.scheduleAtFixedRate(new TimeDisplayTimerTask(), 0, INTERVAL);// schedule task
+
+    }
+    return flags;
+}*/
     @Override
     public void onCreate() {
         // cancel if service is  already existed
@@ -76,6 +95,7 @@ public class GPSTracker extends Service {
             mTimer = new Timer(); // recreate new timer
         mTimer.scheduleAtFixedRate(new TimeDisplayTimerTask(), 0, INTERVAL);// schedule task
     }
+
 
     @Override
     public void onDestroy() {
@@ -95,7 +115,7 @@ public class GPSTracker extends Service {
                     // display toast at every 10 second
     //                db1=FirebaseDatabase.getInstance();
                     abc();
-                    Toast.makeText(getApplicationContext(), "Notify222222", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), id1+"+"+"Notify222222", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -145,19 +165,17 @@ public class GPSTracker extends Service {
             isgpsenabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             isnetworkenabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
             Log.d("testw", "zxc");
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_FOR_UPDATES, MIN_DISTANCE_FOR_UPDATES, mLocationListener);
-            Log.d("testw", "qwe5");
-            if (locationManager != null) {
-                Log.d("testw", "hey1");
-                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-                if (location != null) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,MIN_TIME_FOR_UPDATES,MIN_DISTANCE_FOR_UPDATES,mLocationListener);
+            if(locationManager!=null)
+            {Log.d("testw","qew5");
+                location=locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if(location!=null){
                     Log.d("testw","uyiu");
                     latitude =(double) location.getLatitude();
                     longitude =(double) location.getLongitude();
                     //id1=telephonyManager1.getDeviceId();
                     db1=FirebaseDatabase.getInstance();
-                    ref1=db1.getReference("bg");
+                    ref1=db1.getReference("bgkl");
                     //ref.setValue(busno.toUpperCase()+","+latitude+","+longitude);
                     ref1.child("bus_no").setValue("bgw");
                     ref1.child("latitude").setValue(latitude);

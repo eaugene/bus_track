@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                            ref.child("latitude").setValue(latitude);
                            ref.child("longitude").setValue(longitude);
                        }
-                        startService(new Intent(MainActivity.this,GPSTracker.class));
+                        startService((new Intent(MainActivity.this,GPSTracker.class)).putExtra("imei",id.toString()));
                     }
                 });
 
