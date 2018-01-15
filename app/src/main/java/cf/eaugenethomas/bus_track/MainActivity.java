@@ -45,12 +45,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         Log.d("testw","7");
-                        startService(new Intent(MainActivity.this,GPSTracker.class));//use to start the services
+                        //use to start the services
                         location=(TextView)findViewById(R.id.locationtext);
                         gps.getLocation();
                             double latitude=gps.getLatitude();
                             double longitude=gps.getLongitude();
                             location.setText(latitude+" "+longitude);
+                        startService(new Intent(MainActivity.this,GPSTracker.class));
                     }
                 });
 
