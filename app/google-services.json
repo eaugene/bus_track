@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "266524020629",
+    "firebase_url": "https://bus-track-94035.firebaseio.com",
+    "project_id": "bus-track-94035",
+    "storage_bucket": "bus-track-94035.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266524020629:android:423df3f6e857f57f",
+        "android_client_info": {
+          "package_name": "cf.eaugenethomas.bus_track"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "266524020629-cntbr8mffe53u2ll19l55go7j1d47iku.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cf.eaugenethomas.bus_track",
+            "certificate_hash": "9fbf2d0adc3684b8ef2f335c5f3e69fed64cda6b"
+          }
+        },
+        {
+          "client_id": "266524020629-sqhp2i42q9v553h7isg88agghjan6eej.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNVLLS6NZxJiJXKyfuA5W8lci-ID2PNjU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "266524020629-sqhp2i42q9v553h7isg88agghjan6eej.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
