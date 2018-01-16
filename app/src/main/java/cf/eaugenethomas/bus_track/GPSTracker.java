@@ -115,7 +115,7 @@ public class GPSTracker extends Service {
                     // display toast at every 10 second
     //                db1=FirebaseDatabase.getInstance();
                     abc();
-                    Toast.makeText(getApplicationContext(), id1+"+"+"Notify222222", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), id1+"+"+"Notify222222", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -169,18 +169,42 @@ public class GPSTracker extends Service {
             if(locationManager!=null)
             {Log.d("testw","qew5");
                 location=locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                Log.d("testw","qwe6");
                 if(location!=null){
+                    TelephonyManager telephonyManager=(TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                    id1=telephonyManager.getDeviceId();
                     Log.d("testw","uyiu");
                     latitude =(double) location.getLatitude();
                     longitude =(double) location.getLongitude();
                     //id1=telephonyManager1.getDeviceId();
                     db1=FirebaseDatabase.getInstance();
-                    ref1=db1.getReference("bgkl");
+                    ref1=db1.getReference(id1.toString());
                     //ref.setValue(busno.toUpperCase()+","+latitude+","+longitude);
-                    ref1.child("bus_no").setValue("bgw");
+                    //ref1.child("bus_no").setValue("bgw");
                     ref1.child("latitude").setValue(latitude);
                     ref1.child("longitude").setValue(longitude);
-                    Toast.makeText(getApplicationContext(), latitude + "+" + longitude, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), latitude + "+" + longitude, Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_FOR_UPDATES, MIN_DISTANCE_FOR_UPDATES, mLocationListener);
+                    if (locationManager != null) {
+                        location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                        if (location != null) {
+                            TelephonyManager telephonyManager=(TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                            id1=telephonyManager.getDeviceId();
+                            db1=FirebaseDatabase.getInstance();
+                            ref1=db1.getReference(id1.toString());
+                            latitude = location.getLatitude();
+                            longitude = location.getLongitude();
+                            //ref.setValue(busno.toUpperCase()+","+latitude+","+longitude);
+                            //ref1.child("bus_no").setValue("bgw");
+                            ref1.child("latitude").setValue(latitude);
+                            ref1.child("longitude").setValue(longitude);
+                            Log.d("testw", "second"+"+"+latitude+"+"+longitude);
+                            //Toast.makeText(getApplicationContext(), latitude+"+"+longitude, Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
             }
         }

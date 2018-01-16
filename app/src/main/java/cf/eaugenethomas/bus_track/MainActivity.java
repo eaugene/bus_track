@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             Log.d("testw","1");
-            Toast.makeText(mContext,"You need have granted permission",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(mContext,"You need have granted permission",Toast.LENGTH_SHORT).show();
             gps = new GPSTracker(mContext, MainActivity.this);
             if (gps.cangetgps()) {
                 btnshowloaction=(Button)findViewById(R.id.button);
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                             double latitude=gps.getLatitude();
                             double longitude=gps.getLongitude();
                             location.setText(latitude+" "+longitude);
-                        Toast.makeText(getApplicationContext(),id.toString()+"+"+ busno.toUpperCase(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(),id.toString()+"+"+ busno.toUpperCase(), Toast.LENGTH_LONG).show();
                        if(!(busno.isEmpty()))
                        {
                            db=FirebaseDatabase.getInstance();
